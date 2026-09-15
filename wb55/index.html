@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WB55 BLE Terminal</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #091512; color: #e6f2ee; }
+    body { max-width: 850px; margin: 40px auto; padding: 0 20px; }
+    h1 { margin-bottom: 8px; } a { color: #80e8c0; }
+    section { background: #10231d; border: 1px solid #29463a; border-radius: 12px; padding: 20px; margin: 20px 0; }
+    button, input, select { font: inherit; border: 1px solid #45685a; border-radius: 6px; padding: 10px 14px; }
+    button { cursor: pointer; background: #204f3e; color: white; } button:disabled { opacity: .4; cursor: default; }
+    input { min-width: 0; flex: 1; } .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    #terminal { height: 300px; overflow-y: auto; background: #07100d; padding: 14px; font: 14px monospace; }
+    #terminal div { white-space: pre-wrap; overflow-wrap: anywhere; border-bottom: 1px solid #183327; padding: 8px 0; }
+    #notice { color: #b8cfc5; min-height: 1.5em; } small { color: #a0bcb0; }
+    button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid #80e8c0; outline-offset: 3px; }
+  </style>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a href="../">← 기존 HM-10 화면</a>
+  <h1>WB55 BLE Terminal</h1>
+  <small>WeAct STM32WB55 · FFE0 service / FFE1 characteristic</small>
+  <section>
+    <p id="status" role="status">연결 안 됨</p>
+    <div class="row"><button id="connect">WeAct 연결</button><button id="disconnect" disabled>연결 해제</button></div>
+    <p id="notice" role="status">보드 리셋 후 60초 안에 검색하세요.</p>
+  </section>
+  <section>
+    <h2>LED 제어</h2>
+    <div class="row"><button id="on" disabled>LED ON</button><button id="off" disabled>LED OFF</button></div>
+    <p><small>각 버튼은 LED_ON / LED_OFF를 전송합니다. LED 실제 상태는 보드에서 확인하세요.</small></p>
+  </section>
+  <section>
+    <div class="row"><h2>송수신 로그</h2><button id="clear">지우기</button></div>
+    <div id="terminal" role="log" aria-label="BLE 송수신 로그"></div>
+    <form id="sendForm">
+      <p><label for="message">전송할 문자열</label></p>
+      <div class="row"><input id="message" autocomplete="off" disabled><button id="send" disabled>전송</button></div>
+      <p><label for="ending">문자열 줄바꿈 </label><select id="ending"><option value="">없음</option><option value="lf">LF</option><option value="crlf" selected>CR+LF</option></select></p>
+    </form>
+  </section>
+</body>
+</html>

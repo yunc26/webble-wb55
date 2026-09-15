@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07120f" />
+    <meta
+      name="description"
+      content="HM-10 FFE0/FFE1 Web Bluetooth UART terminal"
+    />
+    <title>HM-10 WebBLE Terminal</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">NUCLEO-G491RE · HM-10</p>
+          <h1>WebBLE Terminal</h1>
+          <a href="./wb55/">WB55 BLE 화면으로 이동</a>
+        </div>
+        <div class="connection-state" aria-live="polite">
+          <span id="statusDot" class="status-dot"></span>
+          <span id="statusText">연결 안 됨</span>
+        </div>
+      </header>
+
+      <section class="control-panel" aria-label="Bluetooth 연결">
+        <div class="device-info">
+          <span class="label">DEVICE</span>
+          <strong id="deviceName">HM-10을 선택하세요</strong>
+          <span class="uuid">FFE0 service · FFE1 characteristic</span>
+        </div>
+        <div class="button-row">
+          <button id="connectButton" class="button primary" type="button">
+            HM-10 연결
+          </button>
+          <button id="disconnectButton" class="button" type="button" disabled>
+            연결 해제
+          </button>
+        </div>
+      </section>
+
+      <section class="terminal-panel" aria-label="BLE 터미널">
+        <div class="terminal-toolbar">
+          <div class="legend" aria-label="로그 방향">
+            <span><i class="rx-mark"></i>VCP → HM-10 → WebBLE</span>
+            <span><i class="tx-mark"></i>WebBLE → HM-10 → VCP</span>
+          </div>
+          <div class="toolbar-actions">
+            <label class="check-control">
+              <input id="autoScroll" type="checkbox" checked />
+              자동 스크롤
+            </label>
+            <button id="clearButton" class="text-button" type="button">
+              로그 지우기
+            </button>
+          </div>
+        </div>
+
+        <div
+          id="terminal"
+          class="terminal"
+          role="log"
+          aria-live="polite"
+          aria-label="송수신 로그"
+        >
+          <div class="empty-state" id="emptyState">
+            <span class="prompt-symbol">&gt;_</span>
+            <p>HM-10을 연결하면 송수신 데이터가 여기에 표시됩니다.</p>
+          </div>
+        </div>
+
+        <form id="sendForm" class="composer">
+          <label class="sr-only" for="messageInput">전송할 문자열</label>
+          <textarea
+            id="messageInput"
+            rows="2"
+            maxlength="1024"
+            placeholder="HM-10으로 보낼 문자열을 입력하세요"
+            disabled
+          ></textarea>
+          <div class="composer-actions">
+            <label class="select-control" for="lineEnding">
+              줄바꿈
+              <select id="lineEnding">
+                <option value="none">없음</option>
+                <option value="lf">LF</option>
+                <option value="crlf" selected>CR+LF</option>
+              </select>
+            </label>
+            <span class="send-hint">Enter 전송 · Shift+Enter 줄바꿈</span>
+            <button id="sendButton" class="button send" type="submit" disabled>
+              전송
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <aside id="notice" class="notice" aria-live="polite">
+        Web Bluetooth는 HTTPS 또는 localhost의 지원 브라우저에서 실행해야 합니다.
+      </aside>
+    </main>
+</body>
+</html>
