@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WBA65 WebBLE LED</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header>
+      <a href="../">← 메인 화면</a>
+      <p class="eyebrow">WEACT STM32WBA65CIU6</p>
+      <h1>WebBLE LED Test</h1>
+      <p>Chrome 또는 Edge에서 WBA65 보드의 PC13 LED를 제어합니다.</p>
+    </header>
+
+    <section class="card">
+      <div class="status-row">
+        <span id="status-dot" class="dot"></span>
+        <strong id="status">연결 안 됨</strong>
+      </div>
+      <div class="buttons">
+        <button id="connect">WBA65 연결</button>
+        <button id="disconnect" class="secondary" disabled>연결 해제</button>
+      </div>
+      <p id="notice" role="status">보드를 리셋한 뒤 연결 버튼을 누르고 WBA65xx를 선택하세요.</p>
+    </section>
+
+    <section class="card">
+      <h2>PC13 LED</h2>
+      <div class="buttons">
+        <button id="on" disabled>LED ON</button>
+        <button id="off" disabled>LED OFF</button>
+      </div>
+      <p class="muted">ON은 <code>01 01</code>, OFF는 <code>01 00</code>을 FE41 특성에 전송합니다.</p>
+    </section>
+
+    <section class="card">
+      <div class="log-title">
+        <h2>통신 로그</h2>
+        <button id="clear" class="secondary">지우기</button>
+      </div>
+      <div id="terminal" class="terminal" role="log" aria-live="polite"></div>
+    </section>
+
+    <details>
+      <summary>BLE UUID</summary>
+      <dl>
+        <dt>Service</dt><dd><code>0000FE40-CC7A-482A-984A-7F2ED5B3E58F</code></dd>
+        <dt>LED write</dt><dd><code>0000FE41-8E22-4541-9D4C-21EDAE82ED19</code></dd>
+        <dt>Button notify</dt><dd><code>0000FE42-8E22-4541-9D4C-21EDAE82ED19</code></dd>
+      </dl>
+    </details>
+  </main>
+</body>
+</html>
